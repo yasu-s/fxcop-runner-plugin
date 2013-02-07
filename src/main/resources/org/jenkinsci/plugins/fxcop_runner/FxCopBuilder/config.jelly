@@ -19,7 +19,7 @@
     </f:entry>
 
     <f:entry title="${%RuleSet}" field="ruleSet">
-        <f:textbox name="FxCopBuilder.outputXML" value="${instance.ruleSet}" />
+        <f:textbox name="FxCopBuilder.ruleSet" value="${instance.ruleSet}" />
     </f:entry>
 
     <f:entry title="${%CommandLineArguments}" field="cmdLineArgs">
