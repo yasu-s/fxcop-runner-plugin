@@ -1,0 +1,34 @@
+<j:jelly xmlns:j="jelly:core" xmlns:st="jelly:stapler" xmlns:d="jelly:define" xmlns:l="/lib/layout"
+         xmlns:t="/lib/hudson" xmlns:f="/lib/form">
+
+    <f:entry title="${%ToolName}">
+        <select class="setting-input" name="FxCopBuilder.toolName">
+            <option>(Default)</option>
+            <j:forEach var="inst" items="${descriptor.installations}">
+                <f:option selected="${inst.name==instance.toolName}">${inst.name}</f:option>
+            </j:forEach>
+        </select>
+    </f:entry>
+
+    <f:entry title="${%Files}" field="files">
+        <f:expandableTextbox name="FxCopBuilder.files" value="${instance.files}" />
+    </f:entry>
+
+    <f:entry title="${%OutputXML}" field="outputXML">
+        <f:textbox name="FxCopBuilder.outputXML" value="${instance.outputXML}" />
+    </f:entry>
+
+    <f:entry title="${%RuleSet}" field="ruleSet">
+        <f:textbox name="FxCopBuilder.outputXML" value="${instance.ruleSet}" />
+    </f:entry>
+
+    <f:entry title="${%CommandLineArguments}" field="cmdLineArgs">
+        <f:textbox name="FxCopBuilder.cmdLineArgs" value="${instance.cmdLineArgs}" />
+    </f:entry>
+
+    <f:entry title="${%FailBuild}" field="failBuild">
+        <f:checkbox name="VsTestBuilder.failBuild" value="${instance.failBuild}"
+                    checked="${instance.failBuild}" default="true" />
+    </f:entry>
+
+</j:jelly>
