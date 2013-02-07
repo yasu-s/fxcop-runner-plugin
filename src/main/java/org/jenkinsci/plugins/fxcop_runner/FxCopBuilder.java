@@ -259,7 +259,7 @@ public class FxCopBuilder extends Builder {
         private volatile FxCopInstallation[] installations = new FxCopInstallation[0];
 
         DescriptorImpl() {
-            super(FxCopInstallation.class);
+            super(FxCopBuilder.class);
             load();
         }
 
