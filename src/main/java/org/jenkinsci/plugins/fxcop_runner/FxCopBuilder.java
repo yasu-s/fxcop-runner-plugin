@@ -33,6 +33,7 @@ public class FxCopBuilder extends Builder {
     private final String files;
     private final String outputXML;
     private final String ruleSet;
+    private final boolean ignoreGeneratedCode;
     private final String cmdLineArgs;
     private final boolean failBuild;
 
@@ -42,16 +43,19 @@ public class FxCopBuilder extends Builder {
      * @param files
      * @param outputXML
      * @param ruleSet
+     * @param ignoreGeneratedCode
      * @param cmdLineArgs
+     * @param failBuild
      */
     @DataBoundConstructor
-    public FxCopBuilder(String toolName, String files, String outputXML, String ruleSet, String cmdLineArgs, boolean failBuild) {
-        this.toolName    = toolName;
-        this.files       = files;
-        this.outputXML   = outputXML;
-        this.ruleSet     = ruleSet;
-        this.cmdLineArgs = cmdLineArgs;
-        this.failBuild   = failBuild;
+    public FxCopBuilder(String toolName, String files, String outputXML, String ruleSet, boolean ignoreGeneratedCode, String cmdLineArgs, boolean failBuild) {
+        this.toolName            = toolName;
+        this.files               = files;
+        this.outputXML           = outputXML;
+        this.ruleSet             = ruleSet;
+        this.ignoreGeneratedCode = ignoreGeneratedCode;
+        this.cmdLineArgs         = cmdLineArgs;
+        this.failBuild           = failBuild;
     }
 
     public String getToolName() {
@@ -70,8 +74,16 @@ public class FxCopBuilder extends Builder {
         return ruleSet;
     }
 
+    public boolean isIgnoreGeneratedCode() {
+        return ignoreGeneratedCode;
+    }
+
     public String getCmdLineArgs() {
         return cmdLineArgs;
+    }
+
+    public boolean isFailBuild() {
+        return failBuild;
     }
 
     public FxCopInstallation getInstallation() {
@@ -111,7 +123,11 @@ public class FxCopBuilder extends Builder {
 
         // Rule set to be used for the analysis.
         if (!StringUtil.isNullOrSpace(ruleSet))
-            args.add(StringUtil.convertArgumentWithQuote("ruleset", ruleSet));
+            args.add(String.format("/ruleset:=\"%s\"", ruleSet));
+
+        // Suppress analysis results against generated code.
+        if (ignoreGeneratedCode)
+            args.add("/ignoregeneratedcode");
 
         // Manual Command Line String
         if (!StringUtil.isNullOrSpace(cmdLineArgs))
